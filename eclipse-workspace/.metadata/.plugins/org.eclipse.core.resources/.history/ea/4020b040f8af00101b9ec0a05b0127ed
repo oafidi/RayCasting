@@ -1,0 +1,115 @@
+package dao;
+
+import model.Emprunt;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class EmpruntDao {
+
+    public boolean ajouterEmprunt(Emprunt e) {
+        String sql = "INSERT INTO Emprunt(idLivre, idMembre, dateEmprunt, dateRetourPrevue, statut) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            if (!isLivreDisponible(e.getIdLivre())) return false;
+
+            if (nombreEmpruntsEnCours(e.getIdMembre()) >= 3) return false; // limite 3 par exemple
+
+            pst.setInt(1, e.getIdLivre());
+            pst.setInt(2, e.getIdMembre());
+            pst.setDate(3, e.getDateEmprunt());
+            pst.setDate(4, e.getDateRetourPrevue());
+            pst.setString(5, "En cours");
+            pst.executeUpdate();
+
+            setLivreDisponibilite(e.getIdLivre(), "Emprunté");
+
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean retourLivre(int idEmprunt, Date dateRetourEffective) {
+        String sql = "UPDATE Emprunt SET dateRetourEffective = ?, statut = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            int idLivre = 0;
+            ResultSet rs = conn.createStatement().executeQuery("SELECT idLivre FROM Emprunt WHERE id=" + idEmprunt);
+            if (rs.next()) idLivre = rs.getInt("idLivre");
+
+            pst.setDate(1, dateRetourEffective);
+            pst.setString(2, "Terminé");
+            pst.setInt(3, idEmprunt);
+            pst.executeUpdate();
+
+            setLivreDisponibilite(idLivre, "Disponible");
+
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<String> getEmpruntsEnCours() {
+        List<String> emprunts = new ArrayList<>();
+        String sql = "SELECT e.id, l.titre, m.nom, m.prenom, e.dateEmprunt, e.dateRetourPrevue, e.statut " +
+                     "FROM Emprunt e " +
+                     "JOIN Livre l ON e.idLivre = l.id " +
+                     "JOIN Membre m ON e.idMembre = m.id " +
+                     "WHERE e.statut='En cours'";
+        try (Connection conn = DBConnection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            while (rs.next()) {
+                String info = "Emprunt #" + rs.getInt("id") + 
+                              " - Livre: " + rs.getString("titre") +
+                              " - Membre: " + rs.getString("nom") + " " + rs.getString("prenom") +
+                              " - Date emprunt: " + rs.getDate("dateEmprunt") +
+                              " - Date retour prévue: " + rs.getDate("dateRetourPrevue");
+                emprunts.add(info);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return emprunts;
+    }
+
+    private boolean isLivreDisponible(int idLivre) throws SQLException {
+        String sql = "SELECT statutDisponibilite FROM Livre WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, idLivre);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) return rs.getString("statutDisponibilite").equals("Disponible");
+        }
+        return false;
+    }
+
+    private void setLivreDisponibilite(int idLivre, String statut) throws SQLException {
+        String sql = "UPDATE Livre SET statutDisponibilite=? WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setString(1, statut);
+            pst.setInt(2, idLivre);
+            pst.executeUpdate();
+        }
+    }
+
+    private int nombreEmpruntsEnCours(int idMembre) throws SQLException {
+        String sql = "SELECT COUNT(*) as nbr FROM Emprunt WHERE idMembre=? AND statut='En cours'";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, idMembre);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) return rs.getInt("nbr");
+        }
+        return 0;
+    }
+}

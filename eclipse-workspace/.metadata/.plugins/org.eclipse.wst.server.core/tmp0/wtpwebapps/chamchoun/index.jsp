@@ -1,0 +1,107 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Éditer un contact</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="mb-4 fw-bold">Éditer un contact</h4>
+
+      <form method="post" action="ContactFormHandler">
+        <!-- Contact principal -->
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="contactPrincipal">
+          <label class="form-check-label fw-semibold" for="contactPrincipal">
+            Contact principal
+          </label>
+        </div>
+
+        <!-- Ligne 1 : Titre / Fonction / Langue -->
+        <div class="row mb-3">
+          <div class="col-md-2">
+            <label for="titre" class="form-label">Titre</label>
+            <select id="titre" class="form-select">
+              <option>M.</option>
+              <option>Mme</option>
+              <option>Mlle</option>
+            </select>
+          </div>
+
+          <div class="col-md-5">
+            <label for="fonction" class="form-label">Fonction</label>
+            <input type="text" id="fonction" class="form-control" placeholder="">
+          </div>
+
+          <div class="col-md-5">
+            <label for="langue" class="form-label">Langue</label>
+            <select id="langue" class="form-select">
+              <option>Français</option>
+              <option>Arabe</option>
+              <option>Anglais</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Ligne 2 : Prénom / Nom / Email -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="prenom" class="form-label">Prénom</label>
+            <input type="text" id="prenom" class="form-control" name="prénom">
+          </div>
+
+          <div class="col-md-4">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" id="nom" class="form-control" name="nom">
+          </div>
+
+          <div class="col-md-4">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" class="form-control" name="email">
+          </div>
+        </div>
+
+        <!-- Ligne 3 : Gsm / Téléphone / Fax -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="ID" class="form-label">ID</label>
+            <input type="text" id="ID" class="form-control" name="id">
+          </div>
+
+          <div class="col-md-4">
+            <label for="telephone" class="form-label">Téléphone</label>
+            <input type="text" id="telephone" class="form-control" name="téléphone">
+          </div>
+
+          <div class="col-md-4">
+            <label for="fax" class="form-label">Fax</label>
+            <input type="text" id="fax" class="form-control">
+          </div>
+        </div>
+
+        <!-- Note contact -->
+        <div class="mb-4">
+          <label for="note" class="form-label">Note contact</label>
+          <textarea id="note" rows="3" class="form-control"></textarea>
+        </div>
+
+        <!-- Boutons -->
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary me-2">Sauvegarder</button>
+          <button type="button" class="btn btn-secondary">Annuler</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

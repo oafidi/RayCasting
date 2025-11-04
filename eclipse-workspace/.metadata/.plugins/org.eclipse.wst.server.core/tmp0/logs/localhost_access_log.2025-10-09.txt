@@ -1,0 +1,14 @@
+127.0.0.1 - - [09/Oct/2025:09:41:33 +0100] "GET / HTTP/1.1" 404 752
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:10:05:27 +0100] "GET /TP1/index.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:10:05:27 +0100] "GET /favicon.ico HTTP/1.1" 404 763
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:10:05:40 +0100] "GET /chamchoun/index.jsp HTTP/1.1" 404 754
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:10:06:06 +0100] "GET /chamchoun/index.jsp HTTP/1.1" 404 754
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:10:07:23 +0100] "GET /chamchoun/ContactsHandler HTTP/1.1" 404 781
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:10:07:25 +0100] "GET /chamchoun/ContactsHandler HTTP/1.1" 404 781
+127.0.0.1 - - [09/Oct/2025:10:07:45 +0100] "GET / HTTP/1.1" 404 752
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:10:07:49 +0100] "GET /chamchoun/ContactsHandler HTTP/1.1" 200 21
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:10:07:56 +0100] "GET /chamchoun/index.jsp HTTP/1.1" 200 3555
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:10:09:06 +0100] "GET /chamchoun/index.jsp HTTP/1.1" 200 3562
+127.0.0.1 - - [09/Oct/2025:11:11:49 +0100] "GET / HTTP/1.1" 404 752
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:11:11:50 +0100] "GET /TP1/ContactFormHandler HTTP/1.1" 200 74
+0:0:0:0:0:0:0:1 - - [09/Oct/2025:11:12:15 +0100] "POST /TP1/ContactFormHandler HTTP/1.1" 200 80
