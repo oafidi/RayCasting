@@ -8,11 +8,11 @@ class Player:
         self.x = WIDTH // 2
         self.y = HEIGHT // 2
         self.radius = 5
-        self.angle = 90 * (PI / 180)
+        self.angle = 180 * (PI / 180)
         self.turnDirection = 0
         self.walkDirection = 0
-        self.moveSpeed = 2
-        self.rotationSpeed = 2 * (PI / 180)
+        self.moveSpeed = 15
+        self.rotationSpeed = 4 * (PI / 180)
 
     def update(self):
         keys = pygame.key.get_pressed()
@@ -36,4 +36,4 @@ class Player:
             self.y = newY
     
     def render(self, screen):
-        pygame.draw.circle(screen, (255, 0, 0), (int(self.x), int(self.y)), self.radius)
+        pygame.draw.circle(screen, (255, 0, 0), (self.x // 4, self.y // 4), self.radius)

@@ -16,6 +16,7 @@ class Ray:
         self.wall_hit_x = 0
         self.wall_hit_y = 0
         self.distance = 0
+        self.color = 255
         self.is_facing_down = self.ray_angle > 0 and self.ray_angle < math.pi
         self.is_facing_up = not self.is_facing_down
         self.is_facing_right = self.ray_angle < 0.5 * math.pi or self.ray_angle > 1.5 * math.pi
@@ -30,7 +31,7 @@ class Ray:
         first_intersection_y = math.floor(self.player.y / TILESIZE) * TILESIZE
         if self.is_facing_down:
             first_intersection_y += TILESIZE
-            
+
         first_intersection_x = self.player.x + (first_intersection_y - self.player.y) / math.tan(self.ray_angle)
         
         next_horz_touch_x = first_intersection_x
@@ -90,11 +91,18 @@ class Ray:
             self.wall_hit_x = vertical_wall_hit_x
             self.wall_hit_y = vertical_wall_hit_y
             self.distance = vert_distance
+            self.color = 160
         else:
             self.wall_hit_x = horizontal_wall_hit_x
             self.wall_hit_y = horizontal_wall_hit_y
             self.distance = horz_distance
+            self.color = 255
+        self.distance *= math.cos(self.ray_angle - self.player.angle)
+        self.color *= (60 / self.distance)
+        if self.color > 255:
+            self.color = 255
+        
 
     def render(self, screen):
-        pygame.draw.line(screen, (255, 0, 0), (self.player.x, self.player.y),
-                        (self.wall_hit_x, self.wall_hit_y), 3)
+        pygame.draw.line(screen, (200, 0, 0), (self.player.x // 4, self.player.y // 4),
+                        (self.wall_hit_x // 4, self.wall_hit_y // 4), 2)

@@ -17,13 +17,14 @@ class Map:
             [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
             [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
             [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
             [1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1],
             [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
             [1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1],
             [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
             [1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1],
             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
+        self.ceilling = (255, 255, 255)
+        self.floor = (100, 100, 100)
     
     def is_wall(self, x, y):
         map_x = int(x // TILESIZE)
@@ -31,8 +32,9 @@ class Map:
         return self.map_data[map_y][map_x] == 1
     
     def render(self, screen):
+        pygame.draw.rect(screen, self.ceilling, (0, 0, COLUMNS * TILESIZE // 4, ROWS * TILESIZE // 4))
         for i in range(ROWS):
             for j in range(COLUMNS):
                 tile = self.map_data[i][j]
                 color = (40, 40, 40) if tile == 1 else (250, 250, 250)
-                pygame.draw.rect(screen, color, (j * TILESIZE, i * TILESIZE, TILESIZE - 1 , TILESIZE - 1))
+                pygame.draw.rect(screen, color, (j * TILESIZE // 4, i * TILESIZE // 4, TILESIZE // 4 - 0.1 , TILESIZE // 4 - 0.1))

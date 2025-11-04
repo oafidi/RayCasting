@@ -23,9 +23,9 @@ class Raycaster:
         i = 0
 
         for ray in self.rays:
-            #ray.render(screen)
+            ray.render(screen)
             line_height = (TILESIZE / ray.distance) * self.distance_player_screen
             draw_start = int((HEIGHT / 2) - (line_height / 2))
             draw_end = line_height
-            pygame.draw.rect(screen, (0, 255, 0), (i * RES, draw_start, RES, draw_end))
+            pygame.draw.rect(screen, (ray.color, ray.color, ray.color), (i * RES, draw_start, RES, draw_end))
             i += 1
