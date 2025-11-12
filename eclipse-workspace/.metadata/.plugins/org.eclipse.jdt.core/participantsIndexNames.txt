@@ -1,9 +1,0 @@
-INDEX VERSION 1.134
-/home/oafidi/eclipse/eclipse-workspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/1031275526.index
-/chamchoun/src/main/java
-/home/oafidi/eclipse/eclipse-workspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/3779276763.index
-/TP1/src/main/java
-/home/oafidi/eclipse/eclipse-workspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/973588859.index
-/GestionCommandes/src/main/java
-/home/oafidi/eclipse/eclipse-workspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/4188954399.index
-/Bibliotheque/src/main/java
